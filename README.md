@@ -67,3 +67,4 @@ npx create-react-app my-app
 cd my-app
 npm start
 ```
+#### [React Developer Tools Chrome Extension](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi)
