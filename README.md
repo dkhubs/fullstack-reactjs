@@ -3,10 +3,15 @@
 [React Tutorial: An Overview and Walkthrough](https://www.taniarascia.com/getting-started-with-react)
 
 - Basic familiarity with [HTML & CSS](https://internetingishard.com)
+
 - Basic knowledge of [JavaScript](https://www.digitalocean.com/community/tutorial_series/how-to-code-in-javascript) and programming
+
 - Basic understanding of the [DOM](https://www.taniarascia.com/introduction-to-the-dom)
+
 - Familiarity with [ES6 syntax and features](https://www.taniarascia.com/es6-syntax-and-feature-overview)
+
 - Install **[Node.js](https://nodejs.org) and [npm](https://www.npmjs.com)**
+
 ```
 cd /usr/local/src/
 wget https://nodejs.org/dist/v16.15.0/node-v16.15.0-linux-x64.tar.xz
@@ -21,7 +26,6 @@ ln -s /usr/local/node-v16.15.0-linux-x64/bin/npx /usr/local/bin/npx
 ln -s /usr/local/node-v16.15.0-linux-x64/bin/npx /usr/bin/npx
 ```
 ### Setup and Installation ReactJS
-
 #### Static HTML File
 1. touch index.html
 2. load in three CDNs in the head - React, React DOM, and Babel
@@ -57,5 +61,9 @@ ln -s /usr/local/node-v16.15.0-linux-x64/bin/npx /usr/bin/npx
   </body>
 </html>
 ```
-
 #### [Create React App](https://github.com/facebook/create-react-app)
+```
+npx create-react-app my-app
+cd my-app
+npm start
+```
