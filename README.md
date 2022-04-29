@@ -68,3 +68,58 @@ cd my-app
 npm start
 ```
 #### [React Developer Tools Chrome Extension](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi)
+
+### React Usage
+#### Components
+1. touch Table.js
+```
+import React, {Component} from "react";
+
+class Table extends Component {
+    render() {
+        return(
+            <table>
+            <thread>
+                <tr>
+                    <th>Name</th>
+                    <th>Job</th>
+                </tr>
+            </thread>
+            <tbody>
+                <tr>
+                    <td>Charlie</td>
+                    <td>Janitor</td>
+                </tr>
+                <tr>
+                    <td>Mac</td>
+                    <td>Bouncer</td>
+                </tr>
+                <tr>
+                    <td>Dee</td>
+                    <td>Aspiring actress</td>
+                </tr>
+                <tr>
+                    <td>Dennis</td>
+                    <td>Bartender</td>
+                </tr>
+            </tbody>
+        </table>
+        )
+    }
+}
+
+export default Table
+```
+2. modify App.js
+```
+import './App.css';
+import Table from './Table';
+
+function App() {
+  return (
+    <div className='App'>
+      <Table />
+    </div>
+  )
+}
+```
