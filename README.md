@@ -127,8 +127,6 @@ function App() {
 One of the big deals about React is how it handles data, and it does so with properties, referred to as `props`, and with `state`
 1. First let's remove all the data from our TableBody component in `Table.js`
 ```
-import React, {Component} from "react";
-
 const TableHeader = () => {
   return (
     <thead>
@@ -139,19 +137,27 @@ const TableHeader = () => {
     </thead>
   )
 }
- 
-const TableBody = () => {
-  return <tbody />
+
+const TableBody = (props) => {
+  const rows = props.data.forEach(element => {
+    return (
+      <tr>
+        <td>{element.name}</td>
+        <td>{element.job}</td>
+      </tr>
+    )
+  })
+  console.log(rows)
+
+  return <tbody>{rows}</tbody>
 }
 
 class Table extends Component {
   render() {
-    const {characterData} = this.props
-
     return (
       <table>
         <TableHeader />
-        <TableBody characterData={characterData} />
+        <TableBody data={this.props.data} />
       </table>
     )
   }
@@ -166,7 +172,7 @@ import React, {Component} from 'react';
 
 class App extends Component {
   render() {
-    const characters = [
+    const data = [
       {
         name: 'Charlie',
         job: 'Janitor',
@@ -199,7 +205,8 @@ export default App;
 ```
 return (
   <div className="container">
-    <Table characterData={characters} />
+    <Table data={data} />
   </div>
 )
 ```
+#### state
