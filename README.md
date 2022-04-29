@@ -127,12 +127,43 @@ function App() {
 One of the big deals about React is how it handles data, and it does so with properties, referred to as `props`, and with `state`
 1. First let's remove all the data from our TableBody component in `Table.js`
 ```
+import React, {Component} from "react";
+
+const TableHeader = () => {
+  return (
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Job</th>
+      </tr>
+    </thead>
+  )
+}
+ 
 const TableBody = () => {
   return <tbody />
 }
+
+class Table extends Component {
+  render() {
+    const {characterData} = this.props
+
+    return (
+      <table>
+        <TableHeader />
+        <TableBody characterData={characterData} />
+      </table>
+    )
+  }
+}
+
+export default Table
 ```
-2. Then let's move all that data to an array of objects, We'll have to create this array inside our render()
+2. Then let's move all that data to an array of objects, We'll have to create this array inside our render() in `App.js`
 ```
+import Table from './Table';
+import React, {Component} from 'react';
+
 class App extends Component {
   render() {
     const characters = [
@@ -161,8 +192,10 @@ class App extends Component {
     )
   }
 }
+
+export default App;
 ```
-3. Now, we're going to pass the data through to the child component (Table) with properties, kind of how you might pass data through using data- attributes. We can call the property whatever we want, and I'll put curly braces around it as it's a JavaScript expression
+3. Now, we're going to pass the data through to the child component (Table) with properties in `App.js`. We can call the property whatever we want, and I'll put curly braces around it as it's a JavaScript expression
 ```
 return (
   <div className="container">
