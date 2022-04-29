@@ -123,3 +123,50 @@ function App() {
   )
 }
 ```
+#### Props
+One of the big deals about React is how it handles data, and it does so with properties, referred to as `props`, and with `state`
+1. First let's remove all the data from our TableBody component in `Table.js`
+```
+const TableBody = () => {
+  return <tbody />
+}
+```
+2. Then let's move all that data to an array of objects, We'll have to create this array inside our render()
+```
+class App extends Component {
+  render() {
+    const characters = [
+      {
+        name: 'Charlie',
+        job: 'Janitor',
+      },
+      {
+        name: 'Mac',
+        job: 'Bouncer',
+      },
+      {
+        name: 'Dee',
+        job: 'Aspring actress',
+      },
+      {
+        name: 'Dennis',
+        job: 'Bartender',
+      },
+    ]
+
+    return (
+      <div className="container">
+        <Table />
+      </div>
+    )
+  }
+}
+```
+3. Now, we're going to pass the data through to the child component (Table) with properties, kind of how you might pass data through using data- attributes. We can call the property whatever we want, and I'll put curly braces around it as it's a JavaScript expression
+```
+return (
+  <div className="container">
+    <Table characterData={characters} />
+  </div>
+)
+```
