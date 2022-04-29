@@ -25,6 +25,7 @@ ln -s /usr/local/node-v16.15.0-linux-x64/bin/npm /usr/bin/npm
 ln -s /usr/local/node-v16.15.0-linux-x64/bin/npx /usr/local/bin/npx
 ln -s /usr/local/node-v16.15.0-linux-x64/bin/npx /usr/bin/npx
 ```
+- [GitHub](https://www.taniarascia.com/getting-started-with-git)
 ### Setup and Installation ReactJS
 #### Static HTML File
 1. touch index.html
@@ -67,7 +68,9 @@ npx create-react-app my-app
 cd my-app
 npm start
 ```
-#### [React Developer Tools Chrome Extension](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi)
+#### Chrome Extensions
+1. [React Developer Tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi)
+2. [JSONView](https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc)
 
 ### React Usage
 #### Components
@@ -210,3 +213,134 @@ return (
 )
 ```
 #### state
+You can think of `state` as any data that should be saved and modified without necessarily being added to a database - for example, adding and removing items from a shopping cart before confirming your purchase
+1. To start, we're going to create a state object. The object will contain properties for everything you want to store in the state
+```
+class App extends Component {
+  state = {
+    data: [
+      {
+        name: 'Charlie',
+        job: 'Janitor',
+      },
+      {
+        name: 'Mac',
+        job: 'Bouncer',
+      },
+      {
+        name: 'Dee',
+        job: 'Aspring actress',
+      },
+      {
+        name: 'Dennis',
+        job: 'Bartender',
+      },
+    ],
+  }
+}
+```
+2. create a removeCharacter method on the parent App class
+```
+removeData = (index) => {
+  const data = this.state
+
+  this.setState({
+    data: data.filter((data, i) => {
+      return i !== index
+    })
+  })
+}
+```
+3. Now we have to pass that function through to the component
+```
+render() {
+  const data = this.state.data
+
+  return (
+    <div className="container">
+      <Table data={data} removeData={this.removeData} />
+    </div>
+  )
+}
+```
+5. In the TableBody component, we'll pass the key/index through as a parameter, so the filter function knows which item to remove
+```
+<tr key={index}>
+  <td>{row.name}</td>
+  <td>{row.job}</td>
+  <td>
+    <button onClick={() => props.removeCharacter(index)}>Delete</button>
+  </td>
+</tr>
+```
+#### Submitting Form Data
+
+#### Pulling in API Data
+[How to Connect to an API with JavaScript](https://www.taniarascia.com/how-to-connect-to-an-api-with-javascript)
+
+A public API we can test with is the [Wikipedia API](https://en.wikipedia.org/w/api.php), and I have a [URL endpoint right here](https://en.wikipedia.org/w/api.php?action=opensearch&search=Seona+Dancing&format=json&origin=*) for a random* search
+
+We're going to use [JavaScript's built-in Fetch](https://www.taniarascia.com/how-to-use-the-javascript-fetch-api-to-get-json-data) to gather the data from that URL endpoint and display it
+
+1. touch Api.js
+```
+import React, { Component } from "react";
+
+class App extends Component {
+    state = {
+        data: []
+    }
+
+    // Code is invoked after the component is mounted/inserted into the DOM tree
+    componentDidMount() {
+        const url = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=Seona+Dancing&format=json&origin=*'
+
+        fetch(url).then((result) => result.json()).then((result) => {
+            this.setState({
+                data: result
+            })
+        })
+    }
+
+    render() {
+        const result = this.state.data.map((entry, index) => {
+            return <li key={index}>{entry}</li>
+        })
+        return <ul>{result}</ul>
+    }
+}
+
+export default App
+```
+2. Modify index.js
+```
+import App from './Api';
+```
+
+You can [read more about React components here](https://reactjs.org/docs/react-component.html)
+
+#### Building and Deploying a React App
+1. First, we're going to add a homepage field to package.json, that has the URL we want our app to live on
+```
+"homepage": "https://taniarascia.github.io/react-tutorial",
+```
+2. We'll also add these two lines to the scripts property
+```
+"scripts": {
+  // ...
+  "predeploy": "npm run build",
+  "deploy": "gh-pages -d build"
+}
+```
+3. In your project, you'll add gh-pages to the devDependencies
+```
+npm install --save-dev gh-pages
+```
+4. We'll create the build, which will have all the compiled, static files
+```
+npm run build
+```
+5. Finally, we'll deploy to gh-pages
+```
+npm run deploy
+```
